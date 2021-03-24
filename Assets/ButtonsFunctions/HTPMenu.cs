@@ -7,6 +7,6 @@ public class HTPMenu : MonoBehaviour
 {
     public void goBack()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("MainMenu");
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class BoatHandler : MonoBehaviour
 {
     public float accelerationFactor = 15f;
-    public float maxSpeed;
     public int maxHp = 5;
     public GUIController gui;
     public bool NPC;
@@ -37,7 +36,6 @@ public class BoatHandler : MonoBehaviour
 
                 translation *= accelerationFactor * vertical;
                 translation += transform.right * accelerationFactor * horizontal;
-                Vector3.ClampMagnitude(translation, maxSpeed);
             } else
 			{
                 translation *= accelerationFactor;

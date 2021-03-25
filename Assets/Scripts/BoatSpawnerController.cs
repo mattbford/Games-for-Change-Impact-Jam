@@ -14,7 +14,6 @@ public class BoatSpawnerController : MonoBehaviour
     [Header("GameVars")]
     public BoatType boatClass;
     public float accelerationFactor = 15;
-    public float maxSpeed = 10;
     public float spawnRadius = 15f;
 
     [Header("Prefabs")]
@@ -40,13 +39,17 @@ public class BoatSpawnerController : MonoBehaviour
 			switch (boatClass)
 			{
                 case BoatType.small:
-                    boat = Instantiate(smallBoat, transform);
+                    boat = Instantiate(smallBoat, transform);               
                     break;
                 case BoatType.medium:
+                    boat = Instantiate(medBoat, transform);
                     break;
                 case BoatType.large:
+                    boat = Instantiate(largeBoat, transform);
                     break;
 			}
+            BoatHandler boatController = boat.GetComponent<BoatHandler>();
+            boatController.accelerationFactor = accelerationFactor;
 		}
     }
 

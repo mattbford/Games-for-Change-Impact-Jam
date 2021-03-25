@@ -9,7 +9,7 @@ public class DestroyInSeconds : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Desstroy(gameObject, secondsToDestroy);
+        Destroy(gameObject, secondsToDestroy);
     }
 
 }

@@ -58,6 +58,7 @@ public class BoatHandler : MonoBehaviour
                 Invoke("StopBounce", 0.3f);
                 break;
             case "boat":
+                UpdateHP(-1);
                 rb.AddForce(collision.contacts[0].normal * 15f, ForceMode.Impulse);
                 isBouncing = true;
                 Invoke("StopBounce", 0.3f);

@@ -69,6 +69,11 @@ public class BoatHandler : MonoBehaviour
                 Invoke("StopBounce", 0.3f);
                 break;
         }
+
+        if(currHp <= 0)
+		{
+            GameOver();
+		}
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -77,21 +82,28 @@ public class BoatHandler : MonoBehaviour
         switch(obj.tag)
 		{
             case "collectable":
-                UpdateHP(1);
                 Destroy(obj);
+                UpdateHP(1);
                 break;
 		}
 	}
 
 	public void UpdateHP (int amount)
 	{
-        currHp += amount;
-        if(!NPC)
+        if(!NPC && currHp < maxHp)
+		{
+            currHp += amount;
             gui.SetHP(currHp, maxHp);
+        }
 	}
 
     private void StopBounce()
 	{
         isBouncing = false;
+	}
+
+    private void GameOver()
+	{
+
 	}
 }

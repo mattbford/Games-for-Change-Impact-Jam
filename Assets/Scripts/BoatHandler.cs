@@ -79,11 +79,22 @@ public class BoatHandler : MonoBehaviour
 	private void OnTriggerEnter(Collider other)
 	{
         GameObject obj = other.gameObject;
+		if (NPC)
+		{
+            return;
+		}
         switch(obj.tag)
 		{
             case "collectable":
                 Destroy(obj);
                 UpdateHP(1);
+                break;
+            case "end":
+                if(gui != null)
+				{
+                    gui.WinGame(currHp);
+                    Time.timeScale = 0;
+                }
                 break;
 		}
 	}
@@ -93,7 +104,10 @@ public class BoatHandler : MonoBehaviour
         if(!NPC && currHp < maxHp)
 		{
             currHp += amount;
-            gui.SetHP(currHp, maxHp);
+            if(gui != null)
+			{
+                gui.SetHP(currHp, maxHp);
+            }
         }
 	}
 
@@ -104,6 +118,10 @@ public class BoatHandler : MonoBehaviour
 
     private void GameOver()
 	{
-
+		if(gui != null)
+		{
+            gui.GameOver();
+            Time.timeScale = 0;
+        }
 	}
 }

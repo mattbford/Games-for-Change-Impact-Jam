@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoatHandler : MonoBehaviour
 {
     public float accelerationFactor = 15f;
+    public HealthBar healthBar;
     public int maxHp = 5;
     public GUIController gui;
     public bool NPC;
@@ -18,8 +20,9 @@ public class BoatHandler : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        currHp = 3;
-        if(!NPC)
+        currHp = maxHp;
+        healthBar.SetMaxHealth(maxHp);
+        if (!NPC)
             gui.SetHP(currHp, maxHp);
     }
 
@@ -51,14 +54,16 @@ public class BoatHandler : MonoBehaviour
 		switch(obj.tag)
         {
             case "damage":
-                UpdateHP(-1);
+                //UpdateHP(-1);
+                TakeDamage();
                 Destroy(obj);
                 rb.AddForce(collision.contacts[0].normal * 6f, ForceMode.Impulse);
                 isBouncing = true;
                 Invoke("StopBounce", 0.3f);
                 break;
             case "boat":
-                UpdateHP(-1);
+                //UpdateHP(-1);
+                TakeDamage();
                 rb.AddForce(collision.contacts[0].normal * 15f, ForceMode.Impulse);
                 isBouncing = true;
                 Invoke("StopBounce", 0.3f);
@@ -87,7 +92,8 @@ public class BoatHandler : MonoBehaviour
 		{
             case "collectable":
                 Destroy(obj);
-                UpdateHP(1);
+                //UpdateHP(1);
+                GainHealth();
                 break;
             case "end":
                 if(gui != null)
@@ -124,4 +130,19 @@ public class BoatHandler : MonoBehaviour
             Time.timeScale = 0;
         }
 	}
+
+    void TakeDamage()
+    {
+        currHp -= 1;
+        healthBar.SetHealth(currHp);
+      
+    }
+
+
+    void GainHealth()
+    {
+        currHp += 1;
+        healthBar.SetHealth(currHp);
+    }
+
 }

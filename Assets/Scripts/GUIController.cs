@@ -55,7 +55,7 @@ public class GUIController : MonoBehaviour
 
 	public void SetHP(int amount, int max)
 	{
-        healthBar.setMaxHealth(max);
+        healthBar.SetMaxHealth(max);
         healthBar.SetHealth(amount);
 	}
 }
